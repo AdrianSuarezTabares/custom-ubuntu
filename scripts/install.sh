@@ -70,10 +70,10 @@ apt-get install globalprotect-openconnect
 # TODO, hacerlo con gsettings
 
 # Aplica la configuración de escritorio
-tar -cxzvf dconf.tar.gz dconf/   
+tar -xzvf dconf.tar.gz dconf/   
 cp -r dconf /etc/
 dconf update
 
 # Copia un esqueleto para el home de nuevos usuarios 
-tar -cxzvf skel.tar.gz skel/
-cp -r skel/ /etc/skel/
+tar -xzvf skel.tar.gz skel/
+cp -r skel/ /etc/
