@@ -15,19 +15,40 @@ apt upgrade
 apt autoremove
 
 # instalar aplicaciones de cli
-apt install vim
-apt install git 
+apt install git wget curl 
 
 # Instalar "flatpak", útil para instalar aplicaciones de escritorio
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+apt install flatpak
 apt install gnome-software-plugin-flatpak gnome-software
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Instalar aplicaciones
-flatpak install flathub firefox
-flatpak install flathub chrome
-flatpak install flathub edge
-flatpak install flathub thunderbird
+# firefox
+# flatpak install flathub org.mozilla.firefox
+install -d -m 0755 /etc/apt/keyrings
+wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+echo '
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+' | sudo tee /etc/apt/preferences.d/mozilla 
+apt-get update && apt-get install firefox-l10n-es
+
+# google chrome
+# flatpak install flathub chrome
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+
+# edge 
+# flatpak install flathub edge
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+rm microsoft.gpg
+apt update && apt install microsoft-edge-stable
+
+flatpak install flathub org.mozilla.Thunderbird 
 apt install gnome-shell-extension-manager
 
 
@@ -40,12 +61,19 @@ apt-get install globalprotect-openconnect
 # curl "https://files.trendmicro.com/products/deepsecurity/en/20.0/Manager-Linux-20.0.1017.x64.sh"
 # aplica la configuración 
 # sudo apt-get install dconf-cli
-# dconf load / < gnome-config.txt
+# cp gnome-config.conf /etc/skel/.config/dconf/user
 
 # Cambia los logos por los de inatux
-cp images/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png
-cp images/watermark.png /usr/share/plymouth/themes/spinner/watermark.png
-cp images/bgrt-fallback.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
+# cp images/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png
+# cp images/watermark.png /usr/share/plymouth/themes/spinner/watermark.png
+# cp images/bgrt-fallback.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
+# TODO, hacerlo con gsettings
 
-# Cambia el fondo de pantalla
-gsettings set org.gnome.desktop.background picture-uri "file:///~/Documentos/scripts/images/background.jpg"
+# Aplica la configuración de escritorio
+tar -cxzvf dconf.tar.gz dconf/   
+cp -r dconf /etc/
+dconf update
+
+# Copia un esqueleto para el home de nuevos usuarios 
+tar -cxzvf skel.tar.gz skel/
+cp -r skel/ /etc/skel/
