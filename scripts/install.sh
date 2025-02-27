@@ -8,6 +8,7 @@ dpkg-reconfigure locales
 apt autoremove --purge snapd
 apt-mark hold snapd
 apt install gnome-software --no-install-recommends
+apt remove --autoremove gnome-initial-setup
 
 # actualizar el sistema 
 apt update
@@ -15,7 +16,7 @@ apt upgrade
 apt autoremove
 
 # instalar aplicaciones de cli
-apt install git wget curl 
+apt install vim wget curl 
 
 # Instalar "flatpak", útil para instalar aplicaciones de escritorio
 apt install flatpak
@@ -50,18 +51,21 @@ apt-get update
 apt-get install globalprotect-openconnect
 
 # instalar trendmicro
-# curl "https://files.trendmicro.com/products/deepsecurity/en/20.0/Manager-Linux-20.0.1017.x64.sh"
+wget "https://files.trendmicro.com/products/deepsecurity/en/20.0/Manager-Linux-20.0.1017.x64.sh"
 # aplica la configuración 
 # sudo apt-get install dconf-cli
 # cp gnome-config.conf /etc/skel/.config/dconf/user
 
+## Cambia el branding del sistema 
 # Cambia los logos por los de inatux
 cp images/ubuntu-logo.png /usr/share/plymouth/ubuntu-logo.png
 cp images/watermark.png /usr/share/plymouth/themes/spinner/watermark.png
 cp images/bgrt-fallback.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
-
+cp images/inatux.svg /usr/share/icons/Yaru/scalable/actions/view-app-grid-ubuntu-symbolic.svg
 # Cambia el forndo de pantalla
-cp images/inatux-background.png /usr/share/backgrounds/
+rm /usr/share/backgrounds/*
+
+cp images/Wallpaper.jpg /usr/share/33421
 cp images/inatux-logo.png /usr/share/plymouth/
 # Aplica la configuración de escritorio
 tar -xzvf dconf.tar.gz dconf/   
