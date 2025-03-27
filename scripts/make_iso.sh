@@ -1,6 +1,6 @@
 #!/bin/bash
 
-builddir=~/documentos/inatux-build
+builddir=~/Documentos/inatux-build
 chrootdir=$builddir/chroot
 osurl=http://archive.ubuntu.com/ubuntu/
 
@@ -15,7 +15,7 @@ customize() {
   apt upgrade
   apt autoremove
 
-  # chrimium
+  # chromium
   apt install chromium-browser
   # google chrome
   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -48,8 +48,10 @@ customize() {
   ## Cambia el branding del sistema 
   # Cambia los logos por los de inatux
   cp -r inatux-theme /usr/share/plymouth/themes/
-  cp images/inatux.svg /usr/share/icons/Yaru/scalable/actions/view-app-grid-ubuntu-symbolic.svg
+  update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/inatux-theme/inatux.plymouth 100
   update-alternatives --config default.plymouth
+  cp images/inatux.svg /usr/share/icons/Yaru/scalable/actions/view-app-grid-ubuntu-symbolic.svg
+  
 
   # Cambia el fondo de pantalla
   rm /usr/share/backgrounds/*
