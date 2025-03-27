@@ -23,11 +23,10 @@
 # Login manager options
 # =====================
 [org/gnome/login-screen]
-disable-user-list=true
-logo='/usr/share/plymouth/inatux-logo.png'
+#logo='/usr/share/images/vendor-logos/logo-text-version-64.png'
 
 # - Disable user list
-# disable-user-list=true
+disable-user-list=true
 # - Disable restart buttons
 # disable-restart-buttons=true
 # - Show a login welcome message
@@ -46,4 +45,3 @@ logo='/usr/share/plymouth/inatux-logo.png'
 # - As above but when on battery
 # sleep-inactive-battery-timeout=1200
 # sleep-inactive-battery-type='suspend'
-
