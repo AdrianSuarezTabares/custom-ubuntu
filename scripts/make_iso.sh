@@ -15,6 +15,8 @@ customize() {
   apt upgrade
   apt autoremove
 
+  # chrimium
+  apt install chromium-browser
   # google chrome
   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   dpkg -i google-chrome-stable_current_amd64.deb
@@ -52,7 +54,7 @@ customize() {
   # Cambia el fondo de pantalla
   rm /usr/share/backgrounds/*
   cp images/Wallpaper.jpg /usr/share/backgrounds/
-  cp images/inatux-logo.png /usr/share/plymouth/
+  cp images/ubuntu-logo.png /usr/share/plymouth/inatux-logo.png
 
   # Aplica la configuración de escritorio
   tar -xzvf dconf.tar.gz dconf/   
@@ -66,8 +68,6 @@ customize() {
   # Atajos de las aplicaciones en el escritorio
   cp /usr/share/applications/chromium-browser.desktop /etc/skel/Escritorio/
   cp /usr/share/applications/horizon-client.desktop /etc/skel/Escritorio/
-  cp /usr/share/applications/chromium-browser.desktop /etc/skel/Escritorio/
-  cp /usr/share/applications/firefox.desktop /etc/skel/Escritorio/
   cp /usr/share/applications/google-chrome.desktop /etc/skel/Escritorio/
   cp /usr/share/applications/gpgui.desktop /etc/skel/Escritorio/
   cp /usr/share/applications/microsoft-edge.desktop /etc/skel/Escritorio/
